@@ -1,0 +1,25 @@
+//Task 1.2P - Sahan
+#define MOTION_SENSOR_PIN 2
+#define LED_PIN 13
+volatile int state = LOW;
+
+void setup() {
+  pinMode(MOTION_SENSOR_PIN, INPUT);
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(9600);
+  attachInterrupt(digitalPinToInterrupt(MOTION_SENSOR_PIN), motionDetect, CHANGE);
+}
+
+void loop() {
+  digitalWrite(LED_PIN, state);
+}
+
+void motionDetect() {
+  state = digitalRead(MOTION_SENSOR_PIN);
+
+  if (state == HIGH) {
+    Serial.println("Motion detected! LED ON");
+  } else {
+    Serial.println("No motion detected! LED OFF");
+  }
+}
